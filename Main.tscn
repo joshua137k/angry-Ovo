@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Sceanes/player/Estilingue/estilingue.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sceanes/player/Vetor/VectorCreator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sceanes/back/back.png" type="Texture" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=4]
+[ext_resource path="res://Sceanes/player/script/PlayerCreate.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4636.38, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12.75, 543.5 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0.466667, 0.466667, 0.466667, 1 )
+
+[node name="VectorCreatorSceane" type="Node"]
+script = ExtResource( 4 )
+
+[node name="Cenario" type="Node2D" parent="."]
+
+[node name="Sprite" type="Node2D" parent="Cenario"]
+
+[node name="Back" type="Sprite" parent="Cenario/Sprite"]
+position = Vector2( 4380.5, -5.49991 )
+scale = Vector2( 19.518, 3.566 )
+texture = ExtResource( 3 )
+
+[node name="chao" type="Node2D" parent="Cenario"]
+position = Vector2( 582, 472 )
+
+[node name="Walls" type="Node2D" parent="Cenario/chao"]
+position = Vector2( -518, -605 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Cenario/chao/Walls"]
+position = Vector2( -7, -63 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cenario/chao/Walls/StaticBody2D"]
+position = Vector2( 4563, 719 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Cenario/chao/Walls/StaticBody2D"]
+position = Vector2( 4558, -328 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Cenario/chao/Walls/StaticBody2D"]
+position = Vector2( -66, 205 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Cenario/chao/Walls/StaticBody2D"]
+position = Vector2( 9151, 210 )
+shape = SubResource( 2 )
+
+[node name="playerr" type="Node2D" parent="."]
+position = Vector2( -93, -7 )
+script = ExtResource( 6 )
+
+[node name="estilingue" parent="playerr" instance=ExtResource( 1 )]
+position = Vector2( 243, 411 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VectorCreator" parent="playerr" instance=ExtResource( 2 )]
+position = Vector2( 231, 390 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[connection signal="vector_created" from="playerr/VectorCreator" to="playerr" method="_on_VectorCreator_vector_created"]
